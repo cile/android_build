@@ -53,6 +53,14 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
+
+    if (echo -n $1 | grep -q -e "^bleeding_") ; then
+       BLEEDING_BUILD=$(echo -n $1 | sed -e 's/^bleeding_//g')
+    else
+       BLEEDING_BUILD=
+    fi
+    export BLEEDING_BUILD
+
     CALLED_FROM_SETUP=true BUILD_SYSTEM=build/core \
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
