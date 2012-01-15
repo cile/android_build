@@ -246,8 +246,8 @@ ifneq (,$(user_variant))
   tags_to_install := user
 
   ifeq ($(user_variant),user)
-    # Target is secure in user builds.
-    ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=1
+    # Target is insecure in user builds.
+    ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 
     # Disable debugging in plain user builds.
     enable_target_debugging :=
@@ -255,11 +255,11 @@ ifneq (,$(user_variant))
     # Turn on Dalvik preoptimization for user builds, but only if not
     # explicitly disabled and the build is running on Linux (since host
     # Dalvik isn't built for non-Linux hosts).
-    ifneq (true,$(DISABLE_DEXPREOPT))
-      ifeq ($(HOST_OS),linux)
-        WITH_DEXPREOPT := true
-      endif
-    endif
+    #ifneq (true,$(DISABLE_DEXPREOPT))
+    #  ifeq ($(HOST_OS),linux)
+    #    WITH_DEXPREOPT := true
+    #  endif
+    #endif
   else # userdebug
     # Target is insecure in userdebug builds.
     ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
